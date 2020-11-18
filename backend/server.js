@@ -5,6 +5,8 @@ import userRouter from "./routers/userRouter.js";
 import productRouter from "./routers/productRouter.js";
 import dotenv from "dotenv";
 import orderRouter from "./routers/orderRouter.js";
+import uploadRouter from "./routers/uploadRouter.js";
+import path from "path";
 
 dotenv.config();
 
@@ -22,6 +24,7 @@ mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/myShop", {
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/orders", orderRouter);
+app.use("/api/uploads", uploadRouter);
 
 /**
  * Send back PAYPAL_CLIENT_ID to the frontend by the
@@ -31,6 +34,8 @@ app.use("/api/orders", orderRouter);
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || "sb");
 });
+const __dirname = path.resolve();
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.get("/", (req, res) => {
   res.send("server is ready");
