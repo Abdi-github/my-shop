@@ -1,0 +1,3 @@
+[submodule "frontend-sub-module"]
+	path = frontend-sub-module
+	url = https://github.com/Abdi-github/frontend-sub-module
